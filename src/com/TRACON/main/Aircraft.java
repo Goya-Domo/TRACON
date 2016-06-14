@@ -26,12 +26,14 @@ public class Aircraft extends GameObject {
 		yInOneMinute = y + posVector.calcMinuteYStep();
 	}
 
+	//regular tick
 	@Override
 	public void tick()
 	{
 		posVector.updatePosition();
 	}
 	
+	//"Sweep" tick, updates radar (apparent) position
 	@Override
 	public void updateTick()
 	{		
@@ -46,10 +48,20 @@ public class Aircraft extends GameObject {
 	public void render(Graphics g) 
 	{		
 		g.setColor(Color.GREEN);
+		
+		//Draw target and leader line
 		g.drawRect(x - 4, y - 4, 8, 8);
 		g.drawLine(x, y, xInOneMinute, yInOneMinute);
 		
-		if (Aircraft.selected == this || haloOn)
+		//If this is the selected a/c, draw a circle around it
+		if (Aircraft.selected == this)
+		{
+			//1 mile radius circle around target
+			g.drawOval(this.x - (1 * Game.PIXELSPERMILE), this.y - (1 * Game.PIXELSPERMILE), (2 * Game.PIXELSPERMILE), (2 * Game.PIXELSPERMILE));
+		}
+		
+		//If applicable, draw 3 mile halo
+		if (this.isHaloOn())
 		{
 			g.drawOval(this.x - (3 * Game.PIXELSPERMILE), this.y - (3 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE));
 		}

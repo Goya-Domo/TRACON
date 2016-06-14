@@ -16,12 +16,15 @@ public class MouseInputHandler extends MouseInputAdapter{
 	{
 		System.out.println("click");
 		
+		//for each GameObject in Handler's list
 		for (GameObject gObject : game.getHandler().getObjectList())
 		{
+			//if this object was clicked on
 			if (gObject.contains(e.getPoint()))
 			{
 				if (gObject instanceof Aircraft)
 				{
+					//If it's a left click on an aircraft, select that aircraft
 					if (e.getButton() == MouseEvent.BUTTON1)
 					{
 						Aircraft.selected = (Aircraft)gObject;
@@ -32,7 +35,8 @@ public class MouseInputHandler extends MouseInputAdapter{
 					}
 					else
 					{
-						if (e.getButton() == MouseEvent.BUTTON2)
+						//if right click on an aircraft, toggle halo rendering
+						if (e.getButton() == MouseEvent.BUTTON3)
 						{
 							if (gObject.contains(e.getPoint()))
 							{
@@ -50,6 +54,7 @@ public class MouseInputHandler extends MouseInputAdapter{
 	{
 		if (Aircraft.selected != null)
 		{
+			//If aircraft being dragged isn't selected, then select it
 			if (Aircraft.selected.isBeingDragged() == false)
 			{
 				if (Aircraft.selected.contains(e.getPoint()))
@@ -90,8 +95,10 @@ public class MouseInputHandler extends MouseInputAdapter{
 		
 		if (Aircraft.selected != null)
 		{
+			//If mouse released after being dragged from an aircraft
 			if (Aircraft.selected.isBeingDragged())
 			{
+				//calculate the new heading and send it to the aircraft
 				int dx = e.getX() - Aircraft.selected.getX();
 				int dy = e.getY() - Aircraft.selected.getY();
 				
@@ -116,6 +123,7 @@ public class MouseInputHandler extends MouseInputAdapter{
                     }                        
                 }
                 
+                //Send new heading to a/c
 				Aircraft.selected.setGivenHeading(newHeading);
 				Aircraft.selected.setDragged(false);
 			}
