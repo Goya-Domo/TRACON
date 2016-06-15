@@ -8,7 +8,10 @@ public class Painter {
 	private Point mouse;
 	private int frames, numRunways, translateRunwaysX, translateRunwaysY;
 	
-	private int[] x = {(Game.WIDTH / 2) - (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 30), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 30),  (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 30), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 30)};
+	//temp: Number of pixels to move the left edge of the Sector to the right
+	private final int mRight = 150;
+	
+	private int[] x = {(Game.WIDTH / 2) - (Game.PIXELSPERMILE * 25) + mRight, (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 30), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 30),  (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 30) + mRight, (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 30) + mRight};
 	private int[] y = {(Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 15), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 15), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 15), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 15)};
 	
 	public Painter()
