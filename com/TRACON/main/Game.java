@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(aircraft);
 		aircraft.setGivenHeading(90);
 		
-		handler.addObject(new Aircraft(500, 500, ID.AIRCRAFT, this, 160, 180, 55));
+		handler.addObject(new Aircraft(500, 500, ID.AIRCRAFT, this, 160, 180, 55));	
 	}
 
 	public synchronized void start()
