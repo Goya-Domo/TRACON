@@ -2,23 +2,32 @@ package com.TRACON.main;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 
 public abstract class GameObject {
 	
 	protected int x, y;
 	protected ID id;
 	protected int size; //Radius of clickable area
+	protected Game game;
 	
-	public GameObject(int x, int y, ID id)
+	public GameObject(int x, int y, ID id, Game game)
 	{
 		this.x = x;
 		this.y = y;
-		this.id = id;		
+		this.id = id;	
+		
+		this.game = game;
 	}
 	
 	public abstract void tick();	
 	public abstract void updateTick();
 	public abstract void render(Graphics g);
+	public abstract void leftClickAction();
+	public abstract void rightClickAction();
+	public abstract void mousePressAction();
+	public abstract void mouseDragAction(MouseEvent e);
+	public abstract void mouseDragReleaseAction(MouseEvent e);
 	
 	public int getX()
 	{

@@ -2,6 +2,7 @@ package com.TRACON.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 public class Aircraft extends GameObject {
 
@@ -14,9 +15,9 @@ public class Aircraft extends GameObject {
 	
 	public static Aircraft selected;
 		
-	public Aircraft(int x, int y, ID id, int heading, int speed, int alt)
+	public Aircraft(int x, int y, ID id, Game game, int heading, int speed, int alt)
 	{
-		super(x, y, id);
+		super(x, y, id, game);
 		
 		size = 6;
 		
@@ -65,6 +66,68 @@ public class Aircraft extends GameObject {
 		{
 			g.drawOval(this.x - (3 * Game.PIXELSPERMILE), this.y - (3 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE));
 		}
+	}
+	
+	@Override
+	public void leftClickAction()
+	{
+		Aircraft.selected = this;
+	}
+	
+	@Override
+	public void rightClickAction()
+	{
+		this.toggleHalo();
+	}
+	
+	@Override
+	public void mousePressAction()
+	{
+		Aircraft.selected = this;
+	}
+	
+	@Override
+	public void mouseDragAction(MouseEvent e)
+	{
+		//FIXME
+		if (!dragged)
+		{
+			dragged = true;
+		}
+		super.game.getPainter().updateMouse(e.getPoint());
+	}
+	
+	@Override
+	public void mouseDragReleaseAction(MouseEvent e)
+	{
+		//calculate the new heading and send it to the aircraft
+		int dx = e.getX() - this.getX();
+		int dy = e.getY() - this.getY();
+		
+        int newHeading = (int)Math.toDegrees(Math.atan2(dx, -1 * dy));
+
+        if (dx < 0)
+        {
+            newHeading += 360;                
+        }
+        else
+        {
+            if (newHeading > 360)
+            {
+                newHeading -= 360;
+            }
+            else
+            {
+                if (newHeading <= 0)
+                {
+                    newHeading += 360;
+                }
+            }                        
+        }
+        
+        //Send new heading to a/c
+		this.setGivenHeading(newHeading);
+		dragged = false;
 	}
 	
 	public boolean isBeingDragged()
