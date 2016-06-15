@@ -43,7 +43,7 @@ public class MouseInputHandler extends MouseInputAdapter{
 	{
 		if (Aircraft.selected != null)
 		{
-			if (Aircraft.selected.isBeingDragged())
+			if (Aircraft.selected.isBeingDragged() || Aircraft.selected.contains(e.getPoint()))
 			{
 				Aircraft.selected.mouseDragAction(e);
 			}
@@ -57,6 +57,8 @@ public class MouseInputHandler extends MouseInputAdapter{
 			if (gObject.contains(e.getPoint()))
 			{
 				gObject.mousePressAction();
+				
+				System.out.println("pressed");
 			}
 		}		
 	}

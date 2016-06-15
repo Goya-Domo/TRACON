@@ -71,7 +71,7 @@ public class Aircraft extends GameObject {
 	@Override
 	public void leftClickAction()
 	{
-		Aircraft.selected = this;
+		
 	}
 	
 	@Override
@@ -88,46 +88,50 @@ public class Aircraft extends GameObject {
 	
 	@Override
 	public void mouseDragAction(MouseEvent e)
-	{
-		//FIXME
-		if (!dragged)
+	{		
+		if (Aircraft.selected == this) 
 		{
-			dragged = true;
+			if (this.contains(e.getPoint())) 
+			{
+				dragged = true;	
+				
+				game.getPainter().updateMouse(e.getPoint());
+			}
+			else
+			{
+				game.getPainter().updateMouse(e.getPoint());
+			}
 		}
-		super.game.getPainter().updateMouse(e.getPoint());
 	}
 	
 	@Override
 	public void mouseDragReleaseAction(MouseEvent e)
 	{
-		//calculate the new heading and send it to the aircraft
-		int dx = e.getX() - this.getX();
-		int dy = e.getY() - this.getY();
-		
-        int newHeading = (int)Math.toDegrees(Math.atan2(dx, -1 * dy));
-
-        if (dx < 0)
-        {
-            newHeading += 360;                
-        }
-        else
-        {
-            if (newHeading > 360)
-            {
-                newHeading -= 360;
-            }
-            else
-            {
-                if (newHeading <= 0)
-                {
-                    newHeading += 360;
-                }
-            }                        
-        }
-        
-        //Send new heading to a/c
-		this.setGivenHeading(newHeading);
-		dragged = false;
+		if (dragged) 
+		{
+			//calculate the new heading and send it to the aircraft
+			int dx = e.getX() - this.getX();
+			int dy = e.getY() - this.getY();
+			
+			int newHeading = (int) Math.toDegrees(Math.atan2(dx, -1 * dy));
+			
+			if (dx < 0) {
+				newHeading += 360;
+			} else {
+				if (newHeading > 360) 
+				{
+					newHeading -= 360;
+				} else {
+					if (newHeading <= 0) 
+					{
+						newHeading += 360;
+					}
+				}
+			}
+			//Send new heading to a/c
+			this.setGivenHeading(newHeading);
+			dragged = false;
+		}
 	}
 	
 	public boolean isBeingDragged()

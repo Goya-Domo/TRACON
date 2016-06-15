@@ -61,9 +61,9 @@ public abstract class GameObject {
 	
 	public boolean contains(Point point)
 	{
-		if (point.getX() > this.getX() - this.size && point.getX() < this.getX() + this.size) 
+		if ((int)point.getX() > this.getX() - this.size && (int)point.getX() < this.getX() + this.size) 
 		{
-			if (point.getY() < this.getY() + this.size && point.getY() > this.getY() - this.size) 
+			if ((int)point.getY() < this.getY() + this.size && (int)point.getY() > this.getY() - this.size) 
 			{
 				return true;
 			}
