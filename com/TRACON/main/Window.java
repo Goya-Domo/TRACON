@@ -18,7 +18,9 @@ public class Window extends Canvas {
 		frame.setMinimumSize(new Dimension(width, height));
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		
+		//Setting this to true for now. Need to implement scrolling or panning in some way. And zoom
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null); //Windows starts in center of screen
 		frame.add(game);
 		frame.setVisible(true);

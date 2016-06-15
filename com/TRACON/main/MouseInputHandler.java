@@ -13,9 +13,7 @@ public class MouseInputHandler extends MouseInputAdapter{
 	}
 	
 	public void mouseClicked(MouseEvent e)
-	{
-		System.out.println("click");
-		
+	{		
 		//for each GameObject in Handler's list
 		for (GameObject gObject : game.getHandler().getObjectList())
 		{
@@ -57,8 +55,6 @@ public class MouseInputHandler extends MouseInputAdapter{
 			if (gObject.contains(e.getPoint()))
 			{
 				gObject.mousePressAction();
-				
-				System.out.println("pressed");
 			}
 		}		
 	}

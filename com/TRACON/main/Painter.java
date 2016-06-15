@@ -15,7 +15,7 @@ public class Painter {
 	{
 		numRunways = 1;
 		
-		translateRunwaysX = -200;
+		translateRunwaysX = -50;
 	}
 	
 	public void render(Graphics g)
