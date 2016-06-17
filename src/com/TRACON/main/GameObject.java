@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-public abstract class GameObject {
+public abstract class GameObject implements Clickable{
 	
 	protected int x, y;
 	protected ID id;
@@ -63,5 +63,35 @@ public abstract class GameObject {
 		}
 		else
 			return false;
+	}
+	
+	@Override
+	public void leftClickAction()
+	{
+		
+	}
+	
+	@Override
+	public void rightClickAction()
+	{
+		
+	}
+	
+	@Override
+	public void mousePressAction()
+	{
+		
+	}
+	
+	@Override
+	public void mouseDragReleaseAction(MouseEvent e)
+	{
+		
+	}
+	
+	@Override
+	public void mouseDragAction(MouseEvent e)
+	{
+		
 	}
 }
