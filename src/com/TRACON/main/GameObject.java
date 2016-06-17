@@ -11,7 +11,7 @@ public abstract class GameObject {
 	protected int size; //Radius of clickable area
 	protected Game game;
 	
-	public GameObject(int x, int y, ID id, Game game)
+	GameObject(int x, int y, ID id, Game game)
 	{
 		this.x = x;
 		this.y = y;
@@ -58,12 +58,7 @@ public abstract class GameObject {
 	{
 		if ((int)point.getX() > this.getX() - this.size && (int)point.getX() < this.getX() + this.size) 
 		{
-			if ((int)point.getY() < this.getY() + this.size && (int)point.getY() > this.getY() - this.size) 
-			{
-				return true;
-			}
-			else
-				return false;
+			return ((int)point.getY() < this.getY() + this.size && (int)point.getY() > this.getY() - this.size);
 
 		}
 		else
