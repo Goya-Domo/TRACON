@@ -23,11 +23,6 @@ public abstract class GameObject {
 	public abstract void tick();	
 	public abstract void updateTick();
 	public abstract void render(Graphics g);
-	public abstract void leftClickAction();
-	public abstract void rightClickAction();
-	public abstract void mousePressAction();
-	public abstract void mouseDragAction(MouseEvent e);
-	public abstract void mouseDragReleaseAction(MouseEvent e);
 	
 	public int getX()
 	{

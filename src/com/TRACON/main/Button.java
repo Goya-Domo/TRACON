@@ -4,7 +4,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-public abstract class Button extends GameObject{
+public abstract class Button extends GameObject implements Clickable{
 	
 	//text to display on button
 	protected String content;

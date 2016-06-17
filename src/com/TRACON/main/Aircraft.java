@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-public class Aircraft extends GameObject {
+public class Aircraft extends GameObject implements Clickable{
 
 	private PositionVector posVector;
 
