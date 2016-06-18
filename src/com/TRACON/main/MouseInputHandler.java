@@ -13,32 +13,23 @@ public class MouseInputHandler extends MouseInputAdapter{
 	}
 	
 	public void mouseClicked(MouseEvent e)
-	{
-		System.out.println("click");
-		
+	{		
+		//for each GameObject in Handler's list
 		for (GameObject gObject : game.getHandler().getObjectList())
 		{
+			//if this object was clicked on
+			//TODO Implement mouseClicked functions from superclass (dynamic binding)
 			if (gObject.contains(e.getPoint()))
 			{
-				if (gObject instanceof Aircraft)
+				if (e.getButton() == MouseEvent.BUTTON1)
 				{
-					if (e.getButton() == MouseEvent.BUTTON1)
+					gObject.leftClickAction();
+				}
+				else
+				{
+					if (e.getButton() == MouseEvent.BUTTON3)
 					{
-						Aircraft.selected = (Aircraft)gObject;
-						
-						System.out.println("Aircraft selected");
-						
-						return;
-					}
-					else
-					{
-						if (e.getButton() == MouseEvent.BUTTON2)
-						{
-							if (gObject.contains(e.getPoint()))
-							{
-								((Aircraft)gObject).toggleHalo();
-							}
-						}
+						gObject.rightClickAction();
 					}
 				}
 			}
@@ -50,38 +41,22 @@ public class MouseInputHandler extends MouseInputAdapter{
 	{
 		if (Aircraft.selected != null)
 		{
-			if (Aircraft.selected.isBeingDragged() == false)
+			if (Aircraft.selected.isBeingDragged() || Aircraft.selected.contains(e.getPoint()))
 			{
-				if (Aircraft.selected.contains(e.getPoint()))
-				{
-					game.getPainter().updateMouse(e.getPoint());
-					Aircraft.selected.setDragged(true);
-				}
-			}
-			else
-			{
-				game.getPainter().updateMouse(e.getPoint());
+				Aircraft.selected.mouseDragAction(e);
 			}
 		}
 	}
 	
 	public void mousePressed(MouseEvent e)
- {
-		if (e.getButton() == MouseEvent.BUTTON1)
-		{
-			for (GameObject gObject : game.getHandler().getObjectList()) 
+	{		
+		for (GameObject gObject : game.getHandler().getObjectList())
+		{			
+			if (gObject.contains(e.getPoint()))
 			{
-				if (gObject.contains(e.getPoint())) 
-				{
-					if (gObject instanceof Aircraft) 
-					{
-						Aircraft.selected = (Aircraft)gObject;
-						break;
-					}
-				}
-			
+				gObject.mousePressAction();
 			}
-		}
+		}		
 	}
 	
 	public void mouseReleased(MouseEvent e)
@@ -90,34 +65,10 @@ public class MouseInputHandler extends MouseInputAdapter{
 		
 		if (Aircraft.selected != null)
 		{
+			//If mouse released after being dragged from an aircraft
 			if (Aircraft.selected.isBeingDragged())
 			{
-				int dx = e.getX() - Aircraft.selected.getX();
-				int dy = e.getY() - Aircraft.selected.getY();
-				
-                int newHeading = (int)Math.toDegrees(Math.atan2(dx, -1 * dy));
-
-                if (dx < 0)
-                {
-                    newHeading += 360;                
-                }
-                else
-                {
-                    if (newHeading > 360)
-                    {
-                        newHeading -= 360;
-                    }
-                    else
-                    {
-                        if (newHeading <= 0)
-                        {
-                            newHeading += 360;
-                        }
-                    }                        
-                }
-                
-				Aircraft.selected.setGivenHeading(newHeading);
-				Aircraft.selected.setDragged(false);
+				Aircraft.selected.mouseDragReleaseAction(e);
 			}
 		}		
 	}

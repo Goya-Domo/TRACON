@@ -2,18 +2,22 @@ package com.TRACON.main;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 
-public abstract class GameObject {
+public abstract class GameObject implements Clickable{
 	
 	protected int x, y;
 	protected ID id;
 	protected int size; //Radius of clickable area
+	protected Game game;
 	
-	public GameObject(int x, int y, ID id)
+	GameObject(int x, int y, ID id, Game game)
 	{
 		this.x = x;
 		this.y = y;
-		this.id = id;		
+		this.id = id;
+		
+		this.game = game;
 	}
 	
 	public abstract void tick();	
@@ -52,17 +56,42 @@ public abstract class GameObject {
 	
 	public boolean contains(Point point)
 	{
-		if (point.getX() > this.getX() - this.size && point.getX() < this.getX() + this.size) 
+		if ((int)point.getX() > this.getX() - this.size && (int)point.getX() < this.getX() + this.size) 
 		{
-			if (point.getY() < this.getY() + this.size && point.getY() > this.getY() - this.size) 
-			{
-				return true;
-			}
-			else
-				return false;
+			return ((int)point.getY() < this.getY() + this.size && (int)point.getY() > this.getY() - this.size);
 
 		}
 		else
 			return false;
+	}
+	
+	@Override
+	public void leftClickAction()
+	{
+		
+	}
+	
+	@Override
+	public void rightClickAction()
+	{
+		
+	}
+	
+	@Override
+	public void mousePressAction()
+	{
+		
+	}
+	
+	@Override
+	public void mouseDragReleaseAction(MouseEvent e)
+	{
+		
+	}
+	
+	@Override
+	public void mouseDragAction(MouseEvent e)
+	{
+		
 	}
 }
