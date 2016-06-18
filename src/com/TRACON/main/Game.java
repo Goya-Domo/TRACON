@@ -9,7 +9,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -1314911017221634787L;
 	
-	public static final int WIDTH = 1366, HEIGHT = WIDTH / 12*9;
+	//FIXME
+	public static final int WIDTH = 800, HEIGHT = WIDTH / 12*9;
 	
 	public static final int PIXELSPERMILE = 20, SIMSPEED = 180, TURNRATE = 3;
 	
@@ -27,6 +28,8 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(mousey);
 		this.addMouseMotionListener(mousey);
 		
+		this.addKeyListener(new KeyboardHandler());
+		
 		handler = new Handler();
 		
 		Aircraft aircraft = new Aircraft(100, 100, ID.AIRCRAFT, this, 160, 180, 55);
@@ -34,6 +37,9 @@ public class Game extends Canvas implements Runnable{
 		aircraft.setGivenHeading(90);
 		
 		handler.addObject(new Aircraft(500, 500, ID.AIRCRAFT, this, 160, 180, 55));	
+		
+		Datablock readout = new Datablock(20, HEIGHT - 100, "Test");
+		Datablock.setReadout(readout);
 	}
 
 	public synchronized void start()

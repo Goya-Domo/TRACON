@@ -28,7 +28,12 @@ public class Handler {
 		for (GameObject gObject : objects)
 		{
 			gObject.render(g);
-		}		
+		}
+		
+		if (Datablock.getReadout() != null)
+		{
+			Datablock.getReadout().render(g);
+		}
 	}
 	
 	public void addObject(GameObject object)

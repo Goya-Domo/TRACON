@@ -60,9 +60,7 @@ public class MouseInputHandler extends MouseInputAdapter{
 	}
 	
 	public void mouseReleased(MouseEvent e)
-	{
-		System.out.println("Release");
-		
+	{		
 		if (Aircraft.selected != null)
 		{
 			//If mouse released after being dragged from an aircraft

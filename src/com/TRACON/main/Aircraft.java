@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 public class Aircraft extends GameObject implements Clickable{
 
 	private PositionVector posVector;
+	
+	private Datablock datablock;
 
 	private int xInOneMinute;
 	private int yInOneMinute;
@@ -172,5 +174,10 @@ public class Aircraft extends GameObject implements Clickable{
     public void toggleHalo()
     {
     	this.haloOn = !haloOn;
+    }
+    
+    public static Aircraft getSelected()
+    {
+    	return selected;
     }
 }
