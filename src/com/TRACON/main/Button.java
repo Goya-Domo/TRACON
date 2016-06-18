@@ -4,6 +4,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
+//I don't think this should extend GameObject, but idk
 public abstract class Button extends GameObject implements Clickable{
 	
 	//text to display on button

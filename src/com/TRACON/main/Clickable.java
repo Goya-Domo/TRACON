@@ -8,6 +8,5 @@ public interface Clickable {
 	public void rightClickAction();
 	public void mousePressAction();
 	public void mouseDragAction(MouseEvent e);
-	public void mouseDragReleaseAction(MouseEvent e);
-	
+	public void mouseDragReleaseAction(MouseEvent e);	
 }
