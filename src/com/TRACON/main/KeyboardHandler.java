@@ -15,9 +15,11 @@ public class KeyboardHandler implements KeyListener{
 	}
 	
 	@Override
-	public void keyTyped(KeyEvent e) 
+	public void keyPressed(KeyEvent e) 
 	{
 		String key = KeyEvent.getKeyText(e.getKeyCode());
+		
+		System.out.println(key);
 		
 		if (mode == 'X') // If no mode is active
 		{
@@ -39,15 +41,38 @@ public class KeyboardHandler implements KeyListener{
 				}
 
 				Datablock.getReadout().updateDatablock(property);
-			} else // Else some invalid button was pressed, so reset
-					// everything
+			} 
+			else // Else some invalid button was pressed, so reset everything
 			{
 				Datablock.getReadout().updateDatablock("");
 				mode = 'X';
 			}
-		} else {
-			if (key.equals("enter")) {
-				if (input != null) {
+		} 
+		else 
+		{
+			if (key.equalsIgnoreCase("a") || key.equalsIgnoreCase("s") || key.equalsIgnoreCase("d")) 
+			{
+				mode = key.toUpperCase().charAt(0);
+				switch (mode) {
+				case 'A':
+					property = "Altitude: ";
+					break;
+
+				case 'S':
+					property = "Speed: ";
+					break;
+
+				case 'D':
+					property = "Heading: ";
+					break;
+				}
+
+				Datablock.getReadout().updateDatablock(property);
+			} 
+			if (key.equals("Enter")) 
+			{
+				if (input != null) 
+				{
 					// Attempt to parse the input number
 					int value = parseInput(input);
 					if (value < 0) // values < 0 are invalid (see
@@ -58,8 +83,11 @@ public class KeyboardHandler implements KeyListener{
 						input = "";
 						property = "";
 						mode = 'X';
-					} else {
-						switch (mode) {
+					} 
+					else 
+					{
+						switch (mode) 
+						{
 						case 'A':
 							if (value > 100 || value < 20) // If altitude
 															// value is
@@ -83,16 +111,22 @@ public class KeyboardHandler implements KeyListener{
 
 						case 'S': // Again, check for valid input and pass
 									// it if it works
-							if (value > 250) {
+							if (value > 250) 
+							{
 								Datablock.getReadout().updateDatablock("Too fast!");
 								input = "";
 								mode = 'X';
-							} else {
-								if (value < 60) {
+							} 
+							else 
+							{
+								if (value < 60) 
+								{
 									Datablock.getReadout().updateDatablock("Too slow for this type aircraft!");
 									input = "";
 									mode = 'X';
-								} else {
+								} 
+								else 
+								{
 									Aircraft.getSelected().setGivenSpeed(value);
 									Datablock.getReadout().updateDatablock("");
 									input = "";
@@ -106,7 +140,9 @@ public class KeyboardHandler implements KeyListener{
 								Datablock.getReadout().updateDatablock("Heading must be between 000 and 360");
 								input = "";
 								mode = 'X';
-							} else {
+							} 
+							else 
+							{
 								Aircraft.getSelected().setGivenHeading(value);
 
 								Datablock.getReadout().updateDatablock("");
@@ -123,17 +159,22 @@ public class KeyboardHandler implements KeyListener{
 						input = "";
 						mode = 'X';
 					}
-				} else { // If input was empty, reset the handler
+				} 
+				else 
+				{ // If input was empty, reset the handler
 					Datablock.getReadout().updateDatablock("");
 					property = "";
 					mode = 'X';
 				}
-			} else {
-				if (Character.isDigit(key.charAt(0))) // Some number was
+			}
+			else 
+			{
+				if (Character.isDigit(key.charAt(key.length() - 1))) // Some number was
 														// inputted, and the
 														// handler is in a
 														// valid mode
 				{
+					key = key.substring(key.length() - 1);
 					// Add the number to the input string and display it
 					if (input == null) {
 						input = key;
@@ -142,7 +183,7 @@ public class KeyboardHandler implements KeyListener{
 					}
 					Datablock.getReadout().updateDatablock(property + input);
 				} else {
-					if (key == "backspace") {
+					if (key == "Backspace") {
 						// Remove the last character from the input String
 						// and display result
 						if (input.length() >= 1) {
@@ -158,7 +199,7 @@ public class KeyboardHandler implements KeyListener{
 						Datablock.getReadout().updateDatablock(property + input);
 					} else {
 						// Cancel input if escape pressed
-						if (key == "escape") {
+						if (key == "Escape") {
 							Datablock.getReadout().updateDatablock("");
 							input = "";
 							property = "";
@@ -170,11 +211,11 @@ public class KeyboardHandler implements KeyListener{
 		}
 	}
 
-	@Override
+/*	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -191,5 +232,11 @@ public class KeyboardHandler implements KeyListener{
 		} catch (Exception e) {
 			return -1;
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
