@@ -19,13 +19,30 @@ public class KeyboardHandler implements KeyListener{
 	{
 		String key = KeyEvent.getKeyText(e.getKeyCode());
 		
-		System.out.println(key);
-		
 		if (mode == 'X') // If no mode is active
 		{
 			// Set mode to the key pressed, if it's a s or d
-			if (key.equalsIgnoreCase("a") || key.equalsIgnoreCase("s") || key.equalsIgnoreCase("d")) {
-				mode = key.toUpperCase().charAt(0);
+			if (key.equalsIgnoreCase("a") || key.equalsIgnoreCase("s") || key.equalsIgnoreCase("d")
+					|| key.charAt(key.length() - 1) == '/' || key.charAt(key.length() - 1) == '*' || key.charAt(key.length() - 1) == '-') 
+			{
+				mode = key.toUpperCase().charAt(key.length() - 1);
+				
+				switch (mode)
+				{
+				case '/':
+					mode = 'D';
+					break;
+					
+				case '*':
+					mode = 'S';
+					break;
+					
+				case '-':
+					mode = 'A';
+					break;
+				}
+				
+				System.out.println(mode);
 				switch (mode) {
 				case 'A':
 					property = "Altitude: ";
@@ -50,9 +67,26 @@ public class KeyboardHandler implements KeyListener{
 		} 
 		else 
 		{
-			if (key.equalsIgnoreCase("a") || key.equalsIgnoreCase("s") || key.equalsIgnoreCase("d")) 
+			if (key.equalsIgnoreCase("a") || key.equalsIgnoreCase("s") || key.equalsIgnoreCase("d")
+					|| key.charAt(key.length() - 1) == '/' || key.charAt(key.length() - 1) == '*' || key.charAt(key.length() - 1) == '-') 
 			{
-				mode = key.toUpperCase().charAt(0);
+				mode = key.toUpperCase().charAt(key.length() - 1);
+				
+				switch (mode)
+				{
+				case '/':
+					mode = 'D';
+					break;
+					
+				case '*':
+					mode = 'S';
+					break;
+					
+				case '-':
+					mode = 'A';
+					break;
+				}
+				
 				switch (mode) {
 				case 'A':
 					property = "Altitude: ";

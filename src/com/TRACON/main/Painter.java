@@ -8,6 +8,8 @@ public class Painter {
 	private Point mouse;
 	private int frames, numRunways, translateRunwaysX, translateRunwaysY;
 	
+	private int boundaryMilesWest, boundaryMilesEast, boundaryMilesNorth, boundaryMilesSouth;
+	
 	//temp: Number of pixels to move the left edge of the Sector to the right
 	private final int mRight = 150;
 	
