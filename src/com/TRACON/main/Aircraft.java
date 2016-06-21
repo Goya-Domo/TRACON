@@ -12,8 +12,9 @@ public class Aircraft extends GameObject implements Clickable{
 
 	private int xInOneMinute;
 	private int yInOneMinute;
+	private String callsign;	
 	
-	private boolean dragged, haloOn;
+	private boolean dragged, haloOn, established, cleared, conflict;	
 	
 	public static Aircraft selected;
 		
@@ -23,7 +24,11 @@ public class Aircraft extends GameObject implements Clickable{
 		
 		size = 6;
 		
-		posVector = new PositionVector(x, y, heading, speed, alt);
+		callsign = "N" + String.valueOf(100 + (int)(Math.random()) * 900);
+		
+		datablock = new Datablock(x - 40, y - 40, callsign);
+		
+		posVector = new PositionVector(x, y, heading, speed, alt);		
 		
 		xInOneMinute = x + posVector.calcMinuteXStep();
 		yInOneMinute = y + posVector.calcMinuteYStep();
@@ -68,6 +73,8 @@ public class Aircraft extends GameObject implements Clickable{
 		{
 			g.drawOval(this.x - (3 * Game.PIXELSPERMILE), this.y - (3 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE));
 		}
+		
+		datablock.render(g);
 	}
 	
 	@Override
