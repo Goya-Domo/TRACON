@@ -8,13 +8,13 @@ public class Painter {
 	private Point mouse;
 	private int frames, numRunways, translateRunwaysX, translateRunwaysY;
 	
-	private int boundaryMilesWest, boundaryMilesEast, boundaryMilesNorth, boundaryMilesSouth;
+	private final int boundaryMilesWest = 25, boundaryMilesEast = 30, boundaryMilesNorth = 20, boundaryMilesSouth = 20, bevel = 5;
 	
 	//temp: Number of pixels to move the left edge of the Sector to the right
 	private final int mRight = 150;
 	
-	private int[] x = {(Game.WIDTH / 2) - (Game.PIXELSPERMILE * 25) + mRight, (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 30), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 30),  (Game.WIDTH / 2) + (Game.PIXELSPERMILE * 25), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 25) + mRight, (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 30) + mRight, (Game.WIDTH / 2) - (Game.PIXELSPERMILE * 30) + mRight};
-	private int[] y = {(Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 15), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 15), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 20), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * 15), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * 15)};
+	private int[] x = {(Game.WIDTH / 2) - (Game.PIXELSPERMILE * (boundaryMilesWest - bevel)), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * (boundaryMilesEast - bevel)), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * boundaryMilesEast), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * boundaryMilesEast),  (Game.WIDTH / 2) + (Game.PIXELSPERMILE * (boundaryMilesEast - bevel)), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * (boundaryMilesWest - bevel)), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * boundaryMilesWest), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * boundaryMilesWest)};
+	private int[] y = {(Game.HEIGHT / 2) - (Game.PIXELSPERMILE * boundaryMilesNorth), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * boundaryMilesNorth), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * (boundaryMilesNorth - bevel)), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * (boundaryMilesSouth - bevel)), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * boundaryMilesSouth), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * boundaryMilesSouth), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * (boundaryMilesSouth - bevel)), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * (boundaryMilesSouth - bevel))};
 	
 	public Painter()
 	{

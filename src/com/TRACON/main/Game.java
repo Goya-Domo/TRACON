@@ -10,7 +10,7 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -1314911017221634787L;
 	
 	//FIXME
-	public static final int WIDTH = 1440, HEIGHT = WIDTH / 12*9;
+	public static final int WIDTH = 1000, HEIGHT = WIDTH / 12*9;
 	
 	public static final int PIXELSPERMILE = 10, SIMSPEED = 180, TURNRATE = 3;
 	

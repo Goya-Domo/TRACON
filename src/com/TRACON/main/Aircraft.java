@@ -24,7 +24,7 @@ public class Aircraft extends GameObject implements Clickable{
 		
 		size = 6;
 		
-		callsign = "N" + String.valueOf(100 + (int)(Math.random()) * 900);
+		callsign = "N" + String.valueOf(100 + (int)(Math.random() * 900));
 		
 		datablock = new Datablock(x - 40, y - 40, callsign);
 		
