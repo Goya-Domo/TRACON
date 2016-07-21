@@ -12,7 +12,7 @@ public class Aircraft extends GameObject implements Clickable{
 
 	private int xInOneMinute;
 	private int yInOneMinute;
-	private String callsign;	
+	private String callsign;
 	
 	private boolean dragged, haloOn, established, cleared, conflict;	
 	
@@ -44,9 +44,14 @@ public class Aircraft extends GameObject implements Clickable{
 	//"Sweep" tick, updates radar (apparent) position
 	@Override
 	public void updateTick()
-	{		
-		x = posVector.getX();
-		y = posVector.getY();
+	{
+		int newX = posVector.getX();
+		int newY = posVector.getY();
+		
+		datablock.updateDatablock(datablock.getX() + (newX - x), datablock.getY() + (newY - y));
+		
+		x = newX;
+		y = newY;
 
 		xInOneMinute = x + posVector.calcMinuteXStep();
 		yInOneMinute = y + posVector.calcMinuteYStep();

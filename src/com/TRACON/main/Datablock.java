@@ -19,6 +19,16 @@ public class Datablock implements Clickable{
 		this.content = content;
 	}
 	
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
 	@Override
 	public void leftClickAction() {
 		// TODO Auto-generated method stub
