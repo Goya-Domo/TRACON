@@ -72,6 +72,8 @@ public class KeyboardHandler implements KeyListener{
 			{
 				mode = key.toUpperCase().charAt(key.length() - 1);
 				
+				input = "";
+				
 				switch (mode)
 				{
 				case '/':

@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.addObject(new Aircraft(500, 500, ID.AIRCRAFT, this, 160, 180, 55));	
 		
-		Datablock readout = new Datablock(20, HEIGHT - 100, "Test");
+		Datablock readout = new Datablock(20, HEIGHT - 100, "");
 		Datablock.setReadout(readout);
 	}
 
