@@ -28,7 +28,7 @@ public class Aircraft extends GameObject implements Clickable{
 		
 		datablock = new Datablock(x - 40, y - 40, callsign);
 		
-		posVector = new PositionVector(x, y, heading, speed, alt);		
+		posVector = new PositionVector(x, y, heading, speed, alt, game);
 		
 		xInOneMinute = x + posVector.calcMinuteXStep();
 		yInOneMinute = y + posVector.calcMinuteYStep();
@@ -70,13 +70,13 @@ public class Aircraft extends GameObject implements Clickable{
 		if (Aircraft.selected == this)
 		{
 			//1 mile radius circle around target
-			g.drawOval(this.x - (1 * Game.PIXELSPERMILE), this.y - (1 * Game.PIXELSPERMILE), (2 * Game.PIXELSPERMILE), (2 * Game.PIXELSPERMILE));
+			g.drawOval(this.x - (1 * game.getPixelsPerMile()), this.y - (1 * game.getPixelsPerMile()), (2 * game.getPixelsPerMile()), (2 * game.getPixelsPerMile()));
 		}
 		
 		//If applicable, draw 3 mile halo
 		if (this.isHaloOn())
 		{
-			g.drawOval(this.x - (3 * Game.PIXELSPERMILE), this.y - (3 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE), (6 * Game.PIXELSPERMILE));
+			g.drawOval(this.x - (3 * game.getPixelsPerMile()), this.y - (3 * game.getPixelsPerMile()), (6 * game.getPixelsPerMile()), (6 * game.getPixelsPerMile()));
 		}
 		
 		datablock.render(g);

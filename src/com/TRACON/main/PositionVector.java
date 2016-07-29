@@ -7,6 +7,8 @@
 package com.TRACON.main;
 
 public class PositionVector {
+
+    private Game game;
 	
 	private double exactX, exactY, xStep, yStep;
 	
@@ -17,8 +19,10 @@ public class PositionVector {
 	
 	private int givenHeading, givenSpeed, givenAltitude;
 	
-	public PositionVector(int x, int y, int heading, int speed, int altitude)
+	public PositionVector(int x, int y, int heading, int speed, int altitude, Game game)
 	{
+        this.game = game;
+
 		this.exactX = (double)x;
 		this.exactY = (double)y;
 		
@@ -118,7 +122,7 @@ public class PositionVector {
             }
         }
 		
-        double simSpeed = (((speed * Game.PIXELSPERMILE) / 60) / (20 * Game.SIMSPEED));
+        double simSpeed = (((speed * game.getPixelsPerMile()) / 60) / (20 * game.SIMSPEED));
         double simHeading = calcSimHeading(heading);
         
         xStep = Math.cos(Math.toRadians(simHeading)) * simSpeed;

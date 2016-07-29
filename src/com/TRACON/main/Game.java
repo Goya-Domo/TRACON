@@ -10,25 +10,31 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -1314911017221634787L;
 	
 	//FIXME
-	public static final int WIDTH = 1000, HEIGHT = WIDTH / 12*9;
+	public static final int WIDTH = 1900, HEIGHT = WIDTH / 12*9;
 	
-	public static final int PIXELSPERMILE = 10, SIMSPEED = 180, TURNRATE = 3;
+	//public static final int PIXELSPERMILE = 10;
+	public static final int SIMSPEED = 180, TURNRATE = 3;
 	
 	private Thread thread;
 	private boolean running = false;
+
+	private int pixelsPerMile;
 	
 	private Handler handler;
 	private Painter painter;
+	private Sector sector;
 	
 	public Game()
 	{
 		new Window(WIDTH, HEIGHT, "TRACON", this);
+
+		pixelsPerMile = 10;
 		
 		MouseInputHandler mousey = new MouseInputHandler(this);
 		this.addMouseListener(mousey);
 		this.addMouseMotionListener(mousey);
 		
-		this.addKeyListener(new KeyboardHandler());
+		this.addKeyListener(new KeyboardHandler(this));
 		
 		handler = new Handler();
 		
@@ -36,7 +42,9 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(aircraft);
 		aircraft.setGivenHeading(90);
 		
-		handler.addObject(new Aircraft(500, 500, ID.AIRCRAFT, this, 160, 180, 55));	
+		handler.addObject(new Aircraft(500, 500, ID.AIRCRAFT, this, 160, 180, 55));
+
+		sector = new Sector(this);
 		
 		Datablock readout = new Datablock(20, HEIGHT - 100, "");
 		Datablock.setReadout(readout);
@@ -140,6 +148,8 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		
 		painter.render(g);
+
+		sector.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -153,6 +163,18 @@ public class Game extends Canvas implements Runnable{
 	public Painter getPainter()
 	{
 		return painter;
+	}
+
+	public int getPixelsPerMile()
+	{
+		return pixelsPerMile;
+	}
+
+	public void setPixelsPerMile(int pixels)
+	{
+		this.pixelsPerMile = pixels;
+
+		sector.reCalculateSector();
 	}
 	
 	public static void main(String args[])
