@@ -4,108 +4,48 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Painter {
-	
-	private Point mouse;
-	private int frames, numRunways, translateRunwaysX, translateRunwaysY;
-	
-	private final int boundaryMilesWest = 25, boundaryMilesEast = 30, boundaryMilesNorth = 20, boundaryMilesSouth = 20, bevel = 5;
-	
-	//temp: Number of pixels to move the left edge of the Sector to the right
-	private final int mRight = 150;
-	
-	private int[] x = {(Game.WIDTH / 2) - (Game.PIXELSPERMILE * (boundaryMilesWest - bevel)), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * (boundaryMilesEast - bevel)), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * boundaryMilesEast), (Game.WIDTH / 2) + (Game.PIXELSPERMILE * boundaryMilesEast),  (Game.WIDTH / 2) + (Game.PIXELSPERMILE * (boundaryMilesEast - bevel)), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * (boundaryMilesWest - bevel)), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * boundaryMilesWest), (Game.WIDTH / 2) - (Game.PIXELSPERMILE * boundaryMilesWest)};
-	private int[] y = {(Game.HEIGHT / 2) - (Game.PIXELSPERMILE * boundaryMilesNorth), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * boundaryMilesNorth), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * (boundaryMilesNorth - bevel)), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * (boundaryMilesSouth - bevel)), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * boundaryMilesSouth), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * boundaryMilesSouth), (Game.HEIGHT / 2) + (Game.PIXELSPERMILE * (boundaryMilesSouth - bevel)), (Game.HEIGHT / 2) - (Game.PIXELSPERMILE * (boundaryMilesSouth - bevel))};
-	
-	public Painter()
-	{
-		numRunways = 1;
-		
-		translateRunwaysX = -50;
-	}
-	
-	public void render(Graphics g)
-	{
-		g.drawPolygon(x, y, 8);
-		
-		g.drawRect((Game.WIDTH / 2 + translateRunwaysX) - Game.PIXELSPERMILE, (Game.HEIGHT / 2 + translateRunwaysY) - (Game.PIXELSPERMILE / 2), Game.PIXELSPERMILE * 2, Game.PIXELSPERMILE / 5);
-		g.drawRect((Game.WIDTH / 2 + translateRunwaysX) - Game.PIXELSPERMILE, (Game.HEIGHT / 2 + translateRunwaysY) + (Game.PIXELSPERMILE / 2), Game.PIXELSPERMILE * 2, Game.PIXELSPERMILE / 5);
-		
-        for(int rWay = 0; rWay < numRunways; rWay++)
-        {
-            for (int n = 0; n <= 3; n++)
-            {
-                g.drawLine( (Game.WIDTH / 2 + translateRunwaysX) + Game.PIXELSPERMILE * 4 + (n * Game.PIXELSPERMILE * 4), (Game.HEIGHT / 2 + translateRunwaysY) - (Game.PIXELSPERMILE / 2) + (Game.PIXELSPERMILE / 10) + (Game.PIXELSPERMILE * rWay), 
-                    (Game.WIDTH / 2 + translateRunwaysX) + Game.PIXELSPERMILE * 4 + (n * Game.PIXELSPERMILE * 4) + (Game.PIXELSPERMILE * 2), Game.HEIGHT / 2 + translateRunwaysY - (Game.PIXELSPERMILE / 2) + (Game.PIXELSPERMILE / 10) + ((Game.PIXELSPERMILE) * rWay));
-            }
-        }
-        
-		if (Aircraft.selected != null)
-		{
-			if (Aircraft.selected.isBeingDragged())
-			{				
-				if (mouse != null)
-				{
-					int dx = (int)mouse.getX() - Aircraft.selected.getX();
-					int dy = (int)mouse.getY() - Aircraft.selected.getY();
-					
-					g.drawLine(Aircraft.selected.getX(), Aircraft.selected.getY(), (int)mouse.getX(), (int)mouse.getY());
-					
-                    int newHeading = (int)Math.toDegrees(Math.atan2(dx, -1 * dy));
 
-                    if (dx < 0)
-                    {
-                        newHeading += 360;                
-                    }
-                    else
-                    {
-                        if (newHeading > 360)
-                        {
+    private Point mouse;
+    private int frames;
+    public Painter() {
+    }
+
+    public void render(Graphics g) {
+        if (Aircraft.selected != null) {
+            if (Aircraft.selected.isBeingDragged()) {
+                if (mouse != null) {
+                    int dx = (int) mouse.getX() - Aircraft.selected.getX();
+                    int dy = (int) mouse.getY() - Aircraft.selected.getY();
+
+                    g.drawLine(Aircraft.selected.getX(), Aircraft.selected.getY(), (int) mouse.getX(), (int) mouse.getY());
+
+                    int newHeading = (int) Math.toDegrees(Math.atan2(dx, -1 * dy));
+
+                    if (dx < 0) {
+                        newHeading += 360;
+                    } else {
+                        if (newHeading > 360) {
                             newHeading -= 360;
-                        }
-                        else
-                        {
-                            if (newHeading <= 0)
-                            {
+                        } else {
+                            if (newHeading <= 0) {
                                 newHeading += 360;
                             }
-                        }                        
-                    }					
-					g.drawString(String.valueOf(newHeading), (int)mouse.getX() - 20, (int)mouse.getY() - 20);
-				}
-			}
-		}
-		
-		g.drawString("FPS: " + String.valueOf(frames), 30, 15);
-	}
-	
-	public void updateMouse(Point a)
-	{
-		mouse = a;
-	}
-	
-	public void updateFrames(int frames)
-	{
-		this.frames = frames;
-	}
-	
-	public void toggleLeftRunway()
-	{
-		numRunways = (numRunways == 1) ? 2 : 1;
-	}
-	
-	public void translate(int dx, int dy)
-	{
-		for (int ndx = 0; ndx < x.length; ndx++)
-		{
-			x[ndx] += dx;
-		}
-		
-		for (int ndx = 0; ndx < y.length; ndx++)
-		{
-			y[ndx] += dy;
-		}
-		
-		translateRunwaysX += dx;
-		translateRunwaysY += dy;
-	}
+                        }
+                    }
+                    g.drawString(String.valueOf(newHeading), (int) mouse.getX() - 20, (int) mouse.getY() - 20);
+                }
+            }
+        }
+
+        g.drawString("FPS: " + String.valueOf(frames), 30, 15);
+    }
+
+    public void updateMouse(Point a) {
+        mouse = a;
+    }
+
+    public void updateFrames(int frames) {
+        this.frames = frames;
+    }
+
 }
